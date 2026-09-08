@@ -92,10 +92,34 @@ sa propre version, plus aboutie.
   un seul ami rejoint la partie à la fois, les 2 autres sièges restent des
   IA.
 
+- **08/09/2026 (correctif mobile)** : retour d'Eros après un vrai test avec un
+  ami ("ça fonctionne mais sur téléphone non, il faut une version web pour
+  les mobiles et faire grossir les cartes"). Vérifié directement en viewport
+  téléphone (390px et 360px de large, Playwright/Edge, pas juste supposé) :
+  deux vrais bugs trouvés et corrigés. (1) `#game-root` n'avait aucune règle
+  flex alors que `.table` comptait sur `flex: 1` pour remplir la hauteur
+  restante ; sans conteneur flex parent, cette règle ne servait à rien, d'où
+  un gros vide sous les boutons sur un écran haut et étroit. (2) la main du
+  joueur utilisait le même chevauchement agressif que sur desktop
+  (`margin-left: -32px` sur des cartes de 42px de large) : au clavier/souris
+  c'est précis, au doigt sur téléphone ça ne laissait qu'une dizaine de
+  pixels tapables par carte, ce qui correspond exactement à ce qu'Eros a vécu
+  ("ça ne fonctionne pas"). Corrigé en réservant à la main du joueur (celle
+  qu'il faut vraiment pouvoir taper, jamais celle des adversaires ni de
+  l'ami distant, chacun se voit toujours "en bas" via `ui.js`) un style mobile
+  dédié : cartes à 50×74px (contre 42×62 avant), sans chevauchement, passage
+  automatique sur plusieurs lignes (`flex-wrap`) plutôt qu'un empilement
+  horizontal impossible à viser au doigt. Revérifié avec un vrai tap tactile
+  Playwright (`page.tap()`, pas un simple clic souris) : sélection visuelle
+  confirmée par capture d'écran, carte jouée avec succès, partie qui continue
+  normalement. Rendu desktop (1280px) revérifié inchangé, zéro régression.
+
 ## Prochaine étape
 
-Faire jouer Eros et un ami en conditions réelles pour validation finale
-(notamment le cas "je termine 1er, je dois choisir la carte à rendre",
-toujours pas exercé en pratique par un humain). Confirmer avec Eros
-l'hypothèse "un seul ami à la fois". Puis passer à la V3 (contacts, liste
-d'amis, version "beaucoup plus belle" façon Murlan Pro).
+Eros doit retester en conditions réelles sur son téléphone (le correctif
+mobile n'a été vérifié qu'en émulation Playwright, pas encore sur un vrai
+appareil physique). Puis faire jouer Eros et un ami en conditions réelles
+pour validation finale (notamment le cas "je termine 1er, je dois choisir la
+carte à rendre", toujours pas exercé en pratique par un humain). Confirmer
+avec Eros l'hypothèse "un seul ami à la fois". Puis passer à la V3 (contacts,
+liste d'amis, version "beaucoup plus belle" façon Murlan Pro).

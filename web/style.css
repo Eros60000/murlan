@@ -74,6 +74,13 @@ body {
   color: var(--gold-light);
 }
 
+#game-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
 .table {
   position: relative;
   z-index: 0;
@@ -405,11 +412,59 @@ body {
 }
 
 @media (max-width: 720px) {
+  .topbar { padding: 6px 12px; }
+  .topbar__title { font-size: 1.1rem; }
+  .score-chip { font-size: 0.75rem; padding: 4px 10px; }
+
   .table {
-    grid-template-columns: 70px 1fr 70px;
-    padding: 10px;
+    grid-template-columns: 52px 1fr 52px;
+    padding: 8px;
+    gap: 4px;
   }
-  .card { width: 42px; height: 62px; font-size: 0.7rem; }
-  .card__center { font-size: 1rem; }
-  .topbar__title { font-size: 1.2rem; }
+
+  .seat__name {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+
+  /* Cartes des adversaires (dos) et du pli central : decoratives/informatives
+     seulement, jamais tapees par le joueur (chacun se voit toujours "en bas"
+     via ui.js), on peut les garder compactes. */
+  .card { width: 40px; height: 58px; font-size: 0.62rem; }
+  .card__center { font-size: 0.9rem; }
+  .card__corner--tl { top: 3px; left: 3px; }
+  .card__corner--br { bottom: 3px; right: 3px; }
+
+  .seat__hand--vertical .card { margin-top: -46px; }
+
+  .trick-group__cards .card { margin-left: -16px; }
+
+  /* Main du joueur (celle qu'on doit vraiment pouvoir taper au doigt) :
+     cartes nettement plus grandes que le reste de la table, plus
+     d'empilement agressif au doigt (etait -32px sur des cartes de 42px de
+     large = ~10px de zone tapable par carte), passage sur plusieurs lignes
+     plutot que sur un chevauchement horizontal impossible a viser. */
+  .table .seat--bottom .seat__hand--player {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    gap: 6px 5px;
+    padding: 4px 4px 8px;
+  }
+  .table .seat--bottom .seat__hand--player .card {
+    width: 50px;
+    height: 74px;
+    font-size: 0.8rem;
+    margin-left: 0;
+  }
+  .table .seat--bottom .seat__hand--player .card__center { font-size: 1.3rem; }
+  .table .seat--bottom .seat__hand--player .card__corner {
+    font-size: 0.85rem;
+  }
+  .table .seat--bottom .seat__hand--player .card__corner--tl { top: 5px; left: 5px; }
+  .table .seat--bottom .seat__hand--player .card__corner--br { bottom: 5px; right: 5px; }
+  .table .seat--bottom .seat__hand--player .card--joker .card__center--joker {
+    font-size: 0.7rem;
+  }
 }
