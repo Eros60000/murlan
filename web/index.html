@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Murlan</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="topbar__title">Murlan</h1>
+    <div class="scoreboard" id="scoreboard"></div>
+  </header>
+
+  <div class="modal" id="mode-screen">
+    <div class="modal__box">
+      <h2>Comment voulez-vous jouer ?</h2>
+
+      <div class="modal__actions modal__actions--col" id="mode-buttons">
+        <button id="btn-mode-solo" class="btn btn--primary">Jouer seul contre les IA</button>
+        <button id="btn-mode-host" class="btn">Créer une partie (inviter un ami)</button>
+        <button id="btn-mode-join" class="btn">Rejoindre avec un code</button>
+      </div>
+
+      <div id="host-panel" hidden>
+        <p class="modal__hint">Partagez ce code avec votre ami :</p>
+        <div class="room-code" id="room-code">-----</div>
+        <p class="modal__hint" id="host-status">Génération du code...</p>
+        <div class="modal__actions">
+          <button id="btn-cancel-host" class="btn">Annuler</button>
+        </div>
+      </div>
+
+      <div id="join-panel" hidden>
+        <p class="modal__hint">Code reçu de votre ami :</p>
+        <input type="text" id="join-code-input" maxlength="5" placeholder="CODE" class="code-input" autocomplete="off">
+        <p class="modal__hint" id="join-status"></p>
+        <div class="modal__actions">
+          <button id="btn-confirm-join" class="btn btn--primary">Rejoindre</button>
+          <button id="btn-cancel-join" class="btn">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="game-root" hidden>
+    <main class="table">
+      <section class="seat seat--top" id="seat-2">
+        <div class="seat__name" id="name-2">Elira</div>
+        <div class="seat__hand" id="hand-2"></div>
+      </section>
+
+      <section class="seat seat--left" id="seat-1">
+        <div class="seat__name" id="name-1">Besnik</div>
+        <div class="seat__hand seat__hand--vertical" id="hand-1"></div>
+      </section>
+
+      <section class="trick-area" id="trick-area"></section>
+
+      <section class="seat seat--right" id="seat-3">
+        <div class="seat__name" id="name-3">Driton</div>
+        <div class="seat__hand seat__hand--vertical" id="hand-3"></div>
+      </section>
+
+      <section class="seat seat--bottom" id="seat-0">
+        <div class="seat__name" id="name-0">Vous</div>
+        <div class="seat__hand seat__hand--player" id="hand-0"></div>
+      </section>
+    </main>
+
+    <div class="message-bar" id="message"></div>
+
+    <footer class="controls">
+      <button id="btn-play" class="btn btn--primary">Jouer</button>
+      <button id="btn-pass" class="btn">Passer</button>
+      <button id="btn-give-card" class="btn btn--primary" hidden>Rendre cette carte</button>
+    </footer>
+  </div>
+
+  <div class="modal" id="round-over-modal" hidden>
+    <div class="modal__box">
+      <h2 id="round-over-title"></h2>
+      <ol id="round-over-list"></ol>
+      <div class="modal__actions">
+        <button id="btn-next-round" class="btn btn--primary">Manche suivante</button>
+        <button id="btn-new-match" class="btn btn--primary" hidden>Nouvelle partie</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/cartes.js"></script>
+  <script src="game.js"></script>
+  <script src="ai.js"></script>
+  <script src="net.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>
