@@ -468,3 +468,72 @@ body {
     font-size: 0.7rem;
   }
 }
+
+/* Telephone en paysage : cible la HAUTEUR, pas la largeur (un telephone en
+   paysage peut faire 700-900px de large, largement au-dessus du seuil
+   "portrait" ci-dessus, mais n'a que ~350-430px de haut). Sans ce bloc, un
+   telephone en paysage recevait les tailles DESKTOP (cartes 62x90, colonnes
+   laterales 150px) sur un ecran de 390px de haut : la main du joueur et les
+   boutons Jouer/Passer sortaient carrement de l'ecran, injouable. Ici, a
+   l'inverse du portrait, la largeur est abondante (main sur une seule
+   ligne, pas de retour a la ligne necessaire) mais la hauteur est rare
+   (topbar, noms de sieges, pli central et barre de controles tous
+   compactes au maximum). */
+@media (orientation: landscape) and (max-height: 500px) {
+  .topbar { padding: 3px 10px; }
+  .topbar__title { font-size: 1rem; letter-spacing: 0.1em; }
+  .score-chip { font-size: 0.68rem; padding: 2px 8px; }
+
+  .table {
+    grid-template-columns: 44px 1fr 44px;
+    padding: 4px 6px;
+    gap: 2px;
+  }
+
+  .seat { gap: 3px; }
+  .seat__name {
+    font-size: 0.62rem;
+    padding: 1px 7px;
+    white-space: nowrap;
+  }
+
+  .seat__hand { min-height: 44px; }
+  .trick-area { min-height: 40px; }
+
+  .card { width: 34px; height: 50px; font-size: 0.52rem; }
+  .card__center { font-size: 0.8rem; }
+  .card__corner--tl { top: 2px; left: 2px; }
+  .card__corner--br { bottom: 2px; right: 2px; }
+
+  .seat__hand--vertical .card { margin-top: -38px; }
+  .trick-group__cards .card { margin-left: -12px; }
+
+  /* Main du joueur : une seule ligne (la largeur ne manque pas en paysage,
+     contrairement au portrait ci-dessus), cartes plus grandes que le reste
+     de la table mais un peu moins qu'en portrait pour tenir en hauteur. */
+  .table .seat--bottom .seat__hand--player {
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0;
+    padding: 2px 4px 4px;
+  }
+  .table .seat--bottom .seat__hand--player .card {
+    width: 44px;
+    height: 64px;
+    font-size: 0.7rem;
+    margin-left: -13px;
+  }
+  .table .seat--bottom .seat__hand--player .card:first-child { margin-left: 0; }
+  .table .seat--bottom .seat__hand--player .card__center { font-size: 1.05rem; }
+  .table .seat--bottom .seat__hand--player .card__corner { font-size: 0.65rem; }
+  .table .seat--bottom .seat__hand--player .card__corner--tl { top: 4px; left: 4px; }
+  .table .seat--bottom .seat__hand--player .card__corner--br { bottom: 4px; right: 4px; }
+  .table .seat--bottom .seat__hand--player .card--joker .card__center--joker {
+    font-size: 0.58rem;
+  }
+
+  .message-bar { min-height: 12px; font-size: 0.7rem; padding: 1px 10px; }
+
+  .controls { padding: 3px 0 5px; gap: 10px; }
+  .btn { padding: 5px 16px; font-size: 0.75rem; }
+}
